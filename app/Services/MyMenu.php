@@ -19,6 +19,23 @@ class MyMenu implements SidebarInterface
             ],
             [
                 'type' => 'menu',
+                'name' => 'Post',
+                'icon' => 'fa fa-pencil-square-o',
+                'is_active' => request()->routeIs('post*') ? 'active' : '',
+                'conditions' => [
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('view-any', App\Models\Admin\Post::class),
+                    ],
+                    [
+                        'type' => 'or',
+                        'condition' => auth()->user()->can('create', App\Models\Admin\Post::class),
+                    ],
+                ],
+                'children' => $this->indexCreateChildren('post', App\Models\Admin\Post::class)
+            ],
+            [
+                'type' => 'menu',
                 'name' => 'Category',
                 'icon' => 'fa fa-code-fork',
                 'is_active' => request()->routeIs('category*') ? 'active' : '',

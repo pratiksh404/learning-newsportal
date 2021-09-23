@@ -50,22 +50,6 @@
                                 class="switch-state"></span>
                         </label>
                     </div>
-                    <div class="col-lg-8">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <label for="image">Category Image</label> <br>
-                                <input type="file" name="image" id="image" accept="image/*" onchange="readURL(this);">
-                            </div>
-                            <div class="col-lg-6 d-flex justify-content-center">
-                                @if (isset($category->image))
-                                <br>
-                                <img src="{{ asset('storage/' . $category->image) }}" alt="{{ $category->name ?? '' }}"
-                                    class="img-fluid" id="category_image">
-                                @endif
-                                <img src="" id="category_image_plcaeholder" class="img-fluid">
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <br>
                 <div class="row">

@@ -2,7 +2,9 @@
 
 namespace App\Repositories;
 
+use App\Models\Admin\Tag;
 use App\Models\Admin\Post;
+use Illuminate\Support\Str;
 use App\Models\Admin\Category;
 use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\Cache;
@@ -33,6 +35,7 @@ class PostRepository implements PostRepositoryInterface
     public function storePost(PostRequest $request)
     {
         $post = Post::create($request->validated());
+        $this->assignTags($post);
         $this->uploadImage($post);
     }
 
@@ -71,6 +74,23 @@ class PostRepository implements PostRepositoryInterface
             ]);
             $image = Image::make(request()->file('image')->getRealPath());
             $image->save(public_path('storage/' . $post->image));
+        }
+    }
+
+    // Assign Tags
+    protected function assignTags(Post $post)
+    {
+        $tags_id = array();
+        if (request()->has('tags')) {
+            foreach (request()->tags as $tag_name) {
+                // Create or Find Tag
+                $tag = Tag::firstOrCreate(
+                    ['name' => trim($tag_name)],
+                    ['slug' => Str::slug(trim($tag_name))]
+                );
+                $tags_id[] = $tag->id;
+            }
+            $post->tags()->attach($tags_id);
         }
     }
 }

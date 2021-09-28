@@ -2,8 +2,9 @@
 
 namespace App\Models\Admin;
 
-use App\Models\Admin\Category;
 use App\Models\User;
+use App\Models\Admin\Tag;
+use App\Models\Admin\Category;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
@@ -69,6 +70,10 @@ class Post extends Model
     public function moderator()
     {
         return $this->belongsTo(User::class, 'approve_by');
+    }
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class)->withTimestamps();
     }
 
     // Accessors

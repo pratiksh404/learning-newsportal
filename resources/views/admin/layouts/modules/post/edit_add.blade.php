@@ -178,6 +178,7 @@
                                             value="1"><span class="switch-state"></span>
                                     </label>
                                 </div>
+                                <br>
                                 <div class="col-lg-12">
                                     <label>Active ? </label> <br>
                                     <label class="switch">
@@ -186,6 +187,15 @@
                                             {{isset($post->active) ? ($post->active ? 'checked' : '') : 'checked'}}
                                             value="1"><span class="switch-state"></span>
                                     </label>
+                                </div>
+                                <br>
+                                <div class="col-lg-12">
+                                    <label for="tags">Tags</label> <br>
+                                    <div class="input-group">
+                                        <select name="tags[]" id="tags" class="tags" style="width: 100%" multiple>
+
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -222,10 +232,9 @@
                             <br>
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <label for="meta_keywords">Meta Keywords</label>
+                                    <label>Meta Keywords</label> <br>
                                     <div class="input-group">
-                                        <select name="meta_keywords[]" id="meta_keywords" class="tags form-control"
-                                            multiple>
+                                        <select name="meta_keywords[]" id="tags" class="tags form-control" multiple>
                                             @isset($post->meta_keywords)
                                             @foreach ($post->meta_keywords as $meta_keyword)
                                             <option value="{{ $meta_keyword }}" selected>{{ $meta_keyword }}
